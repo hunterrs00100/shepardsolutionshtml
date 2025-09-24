@@ -784,7 +784,7 @@
             <h2 class="section-title">Let's Connect</h2>
             <div class="contact-content">
                 <div class="contact-form">
-                    <form>
+                    <form action="https://formspree.io/f/xeorqnbz" method="POST" id="contact-form">
                         <div class="form-group">
                             <label for="name">Name</label>
                             <input type="text" id="name" name="name" placeholder="Your Name" required>
@@ -801,7 +801,7 @@
                             <label for="message">Message</label>
                             <textarea id="message" name="message" rows="5" placeholder="Tell me about your project or challenge..." required></textarea>
                         </div>
-                        <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message</button>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;" id="submit-btn">Send Message</button>
                     </form>
                 </div>
                 <div class="contact-info">
@@ -865,11 +865,22 @@
             }
         });
 
-        // Form submission (basic handling)
-        document.querySelector('form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Thank you for your message! I\'ll get back to you soon.');
-            this.reset();
+        // Form submission with Formspree
+        const contactForm = document.getElementById('contact-form');
+        const submitBtn = document.getElementById('submit-btn');
+        
+        contactForm.addEventListener('submit', function(e) {
+            // Let the form submit to Formspree naturally
+            submitBtn.textContent = 'Sending...';
+            submitBtn.disabled = true;
+            
+            // Show success message after a short delay (form will redirect or show response)
+            setTimeout(function() {
+                alert('Thank you for your message! I\'ll get back to you within 24 hours.');
+                contactForm.reset();
+                submitBtn.textContent = 'Send Message';
+                submitBtn.disabled = false;
+            }, 2000);
         });
 
         // Mobile menu toggle
@@ -904,5 +915,4 @@
         });
     </script>
 </body>
-
 </html>
